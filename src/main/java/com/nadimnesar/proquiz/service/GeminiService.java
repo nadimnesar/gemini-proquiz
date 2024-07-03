@@ -27,7 +27,7 @@ public class GeminiService {
         String fullApiUrl = String.format(apiUrl, apiKey);
 
         String prompt = String.format("""
-                Generate 3 MCQ question on %s using following json format.
+                Generate 10 MCQ question on %s using following json format.
                 {
                     "questionList":
                     [
