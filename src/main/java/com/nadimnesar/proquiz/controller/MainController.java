@@ -26,6 +26,7 @@ public class MainController {
     public String generateQuiz(@RequestParam String topic, Model model) {
         QuestionForm questionForm = geminiService.createQuiz(topic);
         model.addAttribute("questionForm", questionForm);
+        model.addAttribute("topic", topic);
         return "/quiz";
     }
 
