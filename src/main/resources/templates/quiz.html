@@ -10,32 +10,30 @@
         <h1 class="text-center" th:text="'Quiz on ' + ${topic}"></h1>
     </div>
 
-    <form th:action="@{/submit}" method="post" th:object="${questionForm}">
+    <form th:action="@{/result}" method="post" th:object="${questionForm}">
         <div class="bg-dark text-light p-4 rounded mb-4" th:each="ques, i : ${questionForm.getQuestionList()}">
             <p class="font-weight-bold text-danger" th:text="${ques.getQuestion()}"></p>
 
             <div class="form-check">
-                <input class="form-check-input" type="radio" th:name="|questions[${i.index}].chosen|" th:value="a" id="optionA[[${i.index}]]">
-                <label class="form-check-label" th:for="|optionA[${i.index}]|" th:text="${ques.optionA}"></label>
+                <input class="form-check-input" type="radio" th:name="|questionList[${i.index}].chosen|" th:value="a">
+                <label class="form-check-label" th:text="${ques.optionA}"></label>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="radio" th:name="|questions[${i.index}].chosen|" th:value="b" id="optionB[[${i.index}]]">
-                <label class="form-check-label" th:for="|optionB[${i.index}]|" th:text="${ques.optionB}"></label>
+                <input class="form-check-input" type="radio" th:name="|questionList[${i.index}].chosen|" th:value="b">
+                <label class="form-check-label" th:text="${ques.optionB}"></label>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="radio" th:name="|questions[${i.index}].chosen|" th:value="c" id="optionC[[${i.index}]]">
-                <label class="form-check-label" th:for="|optionC[${i.index}]|" th:text="${ques.optionC}"></label>
+                <input class="form-check-input" type="radio" th:name="|questionList[${i.index}].chosen|" th:value="c">
+                <label class="form-check-label" th:text="${ques.optionC}"></label>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="radio" th:name="|questions[${i.index}].chosen|" th:value="d" id="optionD[[${i.index}]]">
-                <label class="form-check-label" th:for="|optionD[${i.index}]|" th:text="${ques.optionD}"></label>
+                <input class="form-check-input" type="radio" th:name="|questionList[${i.index}].chosen|" th:value="d">
+                <label class="form-check-label" th:text="${ques.optionD}"></label>
             </div>
-
-            <input type="hidden" th:name="|questions[${i.index}].id|" th:value="${i.index}"/>
-            <input type="hidden" th:name="|questions[${i.index}].answer|" th:value="${ques.answer}"/>
+            <input type="hidden" th:name="|questionList[${i.index}].answer|" th:value="${ques.answer}"/>
         </div>
         <button type="submit" class="btn btn-dark d-block mx-auto">Submit Answer</button>
     </form>

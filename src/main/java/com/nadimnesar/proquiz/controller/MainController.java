@@ -1,20 +1,25 @@
 package com.nadimnesar.proquiz.controller;
 
-import com.nadimnesar.proquiz.model.QuestionForm;
+import com.nadimnesar.proquiz.model.QuestionFormDto;
 import com.nadimnesar.proquiz.service.GeminiService;
+import com.nadimnesar.proquiz.service.GeneralService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
 
-    GeminiService geminiService;
+    private final GeneralService generalService;
+    private final GeminiService geminiService;
+    private boolean submitStatus;
 
-    public MainController(GeminiService geminiService) {
+    public MainController(GeminiService geminiService, GeneralService generalService) {
         this.geminiService = geminiService;
+        this.generalService = generalService;
     }
 
     @GetMapping("/")
@@ -24,14 +29,19 @@ public class MainController {
 
     @GetMapping("/quiz")
     public String generateQuiz(@RequestParam String topic, Model model) {
-        QuestionForm questionForm = geminiService.createQuiz(topic);
+        QuestionFormDto questionForm = generalService.modifyQuestion(geminiService.createQuiz(topic));
         model.addAttribute("questionForm", questionForm);
         model.addAttribute("topic", topic);
-        return "/quiz";
+        submitStatus = false;
+        return "quiz";
     }
 
-    @PostMapping("/submit")
-    public String submitQuiz() {
-        return "redirect:/";
+    @PostMapping("/result")
+    public String submitQuiz(@ModelAttribute QuestionFormDto questionForm, Model model) {
+        if (submitStatus) return "redirect:/";
+        submitStatus = true;
+        int result = generalService.calculateResult(questionForm);
+        model.addAttribute("result", result);
+        return "result";
     }
 }
