@@ -2,7 +2,6 @@ package com.nadimnesar.proquiz.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nadimnesar.proquiz.model.Question;
 import com.nadimnesar.proquiz.model.QuestionForm;
 import com.nadimnesar.proquiz.model.RequestBody;
 import com.nadimnesar.proquiz.model.ResponseBody;
@@ -11,8 +10,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 @Service
 public class GeminiService {
@@ -63,7 +60,7 @@ public class GeminiService {
                     .getContent().getParts().get(0).getText());
             questionForm = objectMapper.treeToValue(rootNode, QuestionForm.class);
         } catch (Exception e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
 
         return questionForm;

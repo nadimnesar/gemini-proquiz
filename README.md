@@ -22,8 +22,8 @@ the Google Gemini 1.5 Flash AI model.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/GeminiProQuiz.git
-   cd GeminiProQuiz
+   git clone https://github.com/nadimnesar/gemini-proquiz.git
+   cd gemini-proquiz
    ```
 2. Build the project using Gradle:
    ```bash
